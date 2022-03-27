@@ -34,6 +34,8 @@ const ZERO_ARRAY = new Array<number>(SONG_COUNT).fill(0);
 function Game() {
   const navigate = useNavigate();
   const answerTextColor = useColorModeValue('blue.500', 'blue.200');
+  const correctTextColor = useColorModeValue('green.500', 'green.200');
+  const wrongTextColor = useColorModeValue('red.500', 'red.200');
   const songFreq = React.useRef([...ZERO_ARRAY]);
   const [gameState, setGameState] = React.useState<GameState | null>(null);
   const [selectedSongId, setSelectedSongId] = React.useState(SONGLIST[0]!.id);
@@ -161,7 +163,7 @@ function Game() {
       )}
       {judgeResult === true && (
         <>
-          <Text>정답입니다 ٩(๑＞◡＜๑)۶</Text>
+          <Text color={correctTextColor} fontSize="lg">정답입니다 ٩(๑＞◡＜๑)۶</Text>
           <Heading size="sm">원래 가사</Heading>
           <VStack wordBreak="keep-all" textAlign="center">
             {answerDisplay.map((line) => (
@@ -173,7 +175,7 @@ function Game() {
       )}
       {judgeResult === false && (
         <>
-          <Text>틀렸습니다 ｡°(´∩ω∩\`)°｡</Text>
+          <Text color={wrongTextColor} fontSize="lg">틀렸습니다 ｡°(´∩ω∩\`)°｡</Text>
           <Text>
             정답은
             {' '}
@@ -187,7 +189,8 @@ function Game() {
               <Text key={line}>{line}</Text>
             ))}
           </VStack>
-          <Text>{`게임이 종료되었습니다. 총 ${qNo - 1}개를 맞추셨어요!`}</Text>
+          <Text fontSize="lg">게임이 종료되었습니다.</Text>
+          <Text fontSize="lg">{`총 ${qNo - 1}개를 맞추셨어요!`}</Text>
           <Button onClick={onResetClick} colorScheme="blue">찐막?</Button>
         </>
       )}
