@@ -48,7 +48,6 @@ function Game() {
     const totalFreq = songFreq.current.reduce((a, b) => a + b, 0);
     const softmax = songFreq.current.map((f) => Math.exp(Math.min((totalFreq - f * SONG_COUNT) / SONG_COUNT, 10)));
     const totalSoftmax = softmax.reduce((a, b) => a + b, 0);
-    console.log(softmax.map((s) => s / totalSoftmax));
     const ansIdx = (() => {
       const r = Math.random() * totalSoftmax;
       let acc = 0;
