@@ -191,7 +191,7 @@ function Game() {
           </VStack>
           <Text fontSize="lg">게임이 종료되었습니다.</Text>
           <Text fontSize="lg">{`총 ${qNo - 1}개를 맞추셨어요!`}</Text>
-          <Button onClick={onResetClick} colorScheme="blue">찐막?</Button>
+          <Button onClick={onResetClick} colorScheme="green">찐막?</Button>
         </>
       )}
       <Heading size="sm">곡 제목 표기 언어</Heading>
