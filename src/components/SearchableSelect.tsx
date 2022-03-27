@@ -27,7 +27,6 @@ const normalizeString = (str: string) => str.replace(/\s/g, '').toLowerCase();
 type Item = {
   key: string,
   label: string,
-  subLabel: string,
   searchKeywords: string[],
 };
 
@@ -41,7 +40,6 @@ function SearchableSelect({
   itemList, selectedItemKey, setSelectedItemKey,
 }: SearchableSelectProps) {
   const hoverItemColor = useColorModeValue('gray.200', 'gray.600');
-  const subLabelColor = useColorModeValue('gray.500', 'gray.500');
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [input, setInput] = React.useState('');
   const [highlightedIdx, setHighlightedIdx] = React.useState(0);
@@ -171,7 +169,6 @@ function SearchableSelect({
                   onClick={() => onItemSelect(idx)}
                 >
                   <Text noOfLines={1}>{item.label}</Text>
-                  <Text noOfLines={1} fontSize="xs" textColor={subLabelColor}>{item.subLabel}</Text>
                 </ListItem>
               );
             })}

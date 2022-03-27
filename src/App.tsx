@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 import Home from '@/pages';
+import Game from '@/pages/game';
 
 function App() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -17,6 +18,7 @@ function App() {
     <Container maxW="container.lg" pt={4}>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/game" element={<Game />} />
       </Routes>
       <Center py={6}>
         <FormControl display="flex" alignItems="center" w="auto">
