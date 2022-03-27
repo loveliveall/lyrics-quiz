@@ -28,18 +28,42 @@ type GameState = {
   judgeResult: boolean | null, // Null means problem screen
 };
 
+const SONG_COUNT = SONGLIST.length;
+const ZERO_ARRAY = new Array<number>(SONG_COUNT).fill(0);
+
 function Game() {
   const navigate = useNavigate();
   const answerTextColor = useColorModeValue('blue.500', 'blue.200');
+  const songFreq = React.useRef([...ZERO_ARRAY]);
   const [gameState, setGameState] = React.useState<GameState | null>(null);
   const [selectedSongId, setSelectedSongId] = React.useState(SONGLIST[0]!.id);
   const [locale, setLocale] = React.useState<'jp' | 'kr'>('jp');
 
   const setNextGameState = (nextQNo: number) => {
+    if (nextQNo === 1) songFreq.current = [...ZERO_ARRAY]; // Initialize on first question
     // Logic to select next problem
-    const ans = SONGLIST[Math.floor(Math.random() * SONGLIST.length)]!;
+    // Select next song for problem. If song is selected more than average, it will have lower probability to be selected and vice versa.
+    const totalFreq = songFreq.current.reduce((a, b) => a + b, 0);
+    const softmax = songFreq.current.map((f) => Math.exp(Math.min((totalFreq - f * SONG_COUNT) / SONG_COUNT, 10)));
+    const totalSoftmax = softmax.reduce((a, b) => a + b, 0);
+    console.log(softmax.map((s) => s / totalSoftmax));
+    const ansIdx = (() => {
+      const r = Math.random() * totalSoftmax;
+      let acc = 0;
+      for (let i = 0; i < SONG_COUNT - 1; i++) {
+        acc += softmax[i]!;
+        if (r < acc) {
+          return i;
+        }
+      }
+      return SONG_COUNT - 1;
+    })();
+    const ans = SONGLIST[ansIdx]!;
+    songFreq.current[ansIdx] += 1;
+    // Select section to use as problem
     const probLen = Math.floor(Math.random() * 5) + 8;
     const probStart = Math.floor(Math.random() * (ans.lyrics.kanji.length - probLen + 1));
+    // Find permutation for problem
     let probOrder = shuffle(new Array(probLen).fill(null).map((_, i) => i));
     // If any of three are consecutive, find another one
     while (true) {
