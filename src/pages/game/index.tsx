@@ -30,13 +30,13 @@ type GameState = {
 
 function Game() {
   const navigate = useNavigate();
-  const answerTextColor = useColorModeValue('blue.800', 'blue.200');
+  const answerTextColor = useColorModeValue('blue.500', 'blue.200');
   const [gameState, setGameState] = React.useState<GameState | null>(null);
   const [selectedSongId, setSelectedSongId] = React.useState(SONGLIST[0]!.id);
   const [locale, setLocale] = React.useState<'jp' | 'kr'>('jp');
 
   const setNextGameState = (nextQNo: number) => {
-    // TODO: Logic to select next problem
+    // Logic to select next problem
     const ans = SONGLIST[Math.floor(Math.random() * SONGLIST.length)]!;
     const probLen = Math.floor(Math.random() * 5) + 8;
     const probStart = Math.floor(Math.random() * (ans.lyrics.kanji.length - probLen + 1));
@@ -153,7 +153,7 @@ function Game() {
           <Text>
             정답은
             {' '}
-            <Text color={answerTextColor}>{answerName[locale]}</Text>
+            <Text as="span" color={answerTextColor}>{answerName[locale]}</Text>
             {' '}
             입니다 (*ﾟДﾟ)
           </Text>
