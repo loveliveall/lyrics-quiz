@@ -116,6 +116,6 @@ export const SONGLIST: SongEntry[] = [
 
 SONGLIST.forEach((e) => {
   const { kanji, kana, kr } = e.lyrics;
-  if (kanji.length !== kana.length) throw Error(`${e.id}: kanji and kana length mismatch`);
-  if (kana.length !== kr.length) throw Error(`${e.id}: kana and kr length mismatch`);
+  if (kanji.length !== kana.length) throw Error(`${e.id}: kanji and kana length mismatch: ${kanji.length}, ${kana.length}`);
+  if (kana.length !== kr.length) throw Error(`${e.id}: kana and kr length mismatch: ${kana.length}, ${kr.length}`);
 });
