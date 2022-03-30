@@ -19,7 +19,7 @@ function Home() {
         <Heading size="lg">러브라이브 선샤인</Heading>
         <Heading size="md">가사로 음악 맞추기</Heading>
       </VStack>
-      <VStack>
+      <VStack wordBreak="keep-all" textAlign="center">
         <Text>곡의 일부분 가사를 무작위로 섞은 가사가 제시됩니다.</Text>
         <Text>제시되는 가사를 보고 곡을 맞춰주세요.</Text>
         <Text>가사는 원어, 독음, 해석의 세 가지로 제공됩니다.</Text>
